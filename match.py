@@ -22,8 +22,19 @@ def load_entries(path):
 def similarity(a, b):
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
+def entry_score(query, entry):
+    """Best similarity across the NL sentence and all tile values."""
+    candidates = [entry['sentence']]
+    tile_cols = ['e0', 'e1', 'e2', 'e3', 'e4', 'v', 'threshold', 'message output']
+    for row in entry['rows']:
+        for col in tile_cols:
+            val = row.get(col, '').strip()
+            if val:
+                candidates.append(val)
+    return max(similarity(query, c) for c in candidates)
+
 def find_best_match(entries, query):
-    scored = [(similarity(query, e['sentence']), e) for e in entries]
+    scored = [(entry_score(query, e), e) for e in entries]
     scored.sort(key=lambda x: x[0], reverse=True)
     return scored[0] if scored else (0, None)
 
