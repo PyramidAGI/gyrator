@@ -1,0 +1,29 @@
+﻿natural language input;e0;e1;e2;e3;e4;v;threshold;message output
+john is asleep;;;;;;;;
+john is sleeping;a;stat;person004;;activity;5;50;
+john sleeps;;;;;;;;
+;;;;;;;;
+where is john?;q;loc;person004;;;;;
+;;;;;;;;
+;;;;;;;;
+they have an argument;a;stat;person345;person234;stability;40;50;
+;a;stat;fight000;;;10;50;
+;;;;;;;;
+where is the new venue?;q;loc;event232;;;;;
+;;;;;;;;
+next week, I am going to York;a;loc;place831;;activity;70;50;
+;a;time;time203;;;;;
+;;;;;;;;
+I'll never go there again;a;loc;place000;negation000;;;;
+;a;time;time207;;;;;
+;;;;;;;;
+we used to go there in the past;a;loc;we;;;;;
+;a;time;time300;;;;;
+;;;;;;;;
+he is very angry;a;stat;person292;emo10;;80;50;
+;;;;;;;;
+why did he go?;q;loc;person200;;;;;
+;q;time;time300;;;;;
+;;;;;;;;
+;;;;;;;;
+the vase is falling off the table;a;stat;thing993;thing553;stability;30;50;that vase is going to fall off the table
