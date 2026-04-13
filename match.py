@@ -20,7 +20,11 @@ def load_entries(path):
     return entries
 
 def similarity(a, b):
-    return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+    seq = SequenceMatcher(None, a.lower(), b.lower()).ratio()
+    # boost if query is a substring of candidate or vice versa
+    if a.lower() in b.lower() or b.lower() in a.lower():
+        seq = max(seq, 0.75)
+    return seq
 
 def entry_score(query, entry):
     """Best similarity across the NL sentence and all tile values."""
