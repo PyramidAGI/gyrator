@@ -48,19 +48,33 @@ def print_entry(score, entry):
         if non_empty:
             print("  " + "  |  ".join(f"{k}: {v}" for k, v in non_empty.items()))
 
+def add_entry(path, query):
+    parts = query.split(' ')
+    e0 = parts[0] if len(parts) > 0 else ''
+    e1 = parts[1] if len(parts) > 1 else ''
+    e2 = parts[2] if len(parts) > 2 else ''
+    e3 = parts[3] if len(parts) > 3 else ''
+    with open(path, 'a', newline='', encoding='utf-8-sig') as f:
+        writer = csv.writer(f, delimiter=';')
+        writer.writerow(['placeholder', e0, e1, e2, e3, '', '', '', 'empty message'])
+    print(f"  Added: nl=placeholder  e0={e0}  e1={e1}  e2={e2}  e3={e3}  message output=empty message")
+
 def main():
     entries = load_entries(CSV_FILE)
     print(f"Loaded {len(entries)} entries from {CSV_FILE}")
-    print("Type 'quit' to exit.\n")
+    print("Type 'quit' to exit. Start with 'a ' to add a new tile row.\n")
     while True:
         query = input("Enter a sentence: ").strip()
         if not query or query.lower() == 'quit':
             break
-        score, entry = find_best_match(entries, query)
-        if entry:
-            print_entry(score, entry)
+        if query.startswith('a '):
+            add_entry(CSV_FILE, query)
         else:
-            print("No entries found.")
+            score, entry = find_best_match(entries, query)
+            if entry:
+                print_entry(score, entry)
+            else:
+                print("No entries found.")
         print()
 
 if __name__ == "__main__":
