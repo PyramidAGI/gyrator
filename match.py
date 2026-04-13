@@ -48,7 +48,7 @@ def print_entry(score, entry):
         if non_empty:
             print("  " + "  |  ".join(f"{k}: {v}" for k, v in non_empty.items()))
 
-def add_entry(path, query):
+def add_entry(path, entries, query):
     parts = query.split(' ')
     e0 = parts[0] if len(parts) > 0 else ''
     e1 = parts[1] if len(parts) > 1 else ''
@@ -57,6 +57,9 @@ def add_entry(path, query):
     with open(path, 'a', newline='', encoding='utf-8-sig') as f:
         writer = csv.writer(f, delimiter=';')
         writer.writerow(['placeholder', e0, e1, e2, e3, '', '', '', 'empty message'])
+    new_row = {'natural language input': 'placeholder', 'e0': e0, 'e1': e1,
+               'e2': e2, 'e3': e3, 'e4': '', 'v': '', 'threshold': '', 'message output': 'empty message'}
+    entries.append({'sentence': 'placeholder', 'rows': [new_row]})
     print(f"  Added: nl=placeholder  e0={e0}  e1={e1}  e2={e2}  e3={e3}  message output=empty message")
 
 def main():
@@ -68,7 +71,7 @@ def main():
         if not query or query.lower() == 'quit':
             break
         if query.startswith('a '):
-            add_entry(CSV_FILE, query)
+            add_entry(CSV_FILE, entries, query)
         else:
             score, entry = find_best_match(entries, query)
             if entry:
