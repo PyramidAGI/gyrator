@@ -1,0 +1,5 @@
+(Get-Content .\tiled-world.csv).length
+
+Get-Content .\tiled-world.csv -head 5
+Get-Content .\tiled-world.csv -tail 5
+
