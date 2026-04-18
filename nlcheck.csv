@@ -38,6 +38,7 @@ the candle;e2=radiation001 e4=energy v=20
 the book;e2=data001
 the flower;e2=plant001
 the house;e2=building020
+the shed;e2=building021
 the pond;e2=thing093
 no way;e3=negation001
 yes;e3=positive001
@@ -50,6 +51,7 @@ yesterday;e2=time210
 future;e2=time207
 past;e2=time300
 is not;e3=negation001
+isn't;e3=negation001
 where is;e0=question e1=loc
 where are;e0=question e1=loc
 where do;e0=question e1=loc
@@ -68,8 +70,6 @@ why do;e0=question
 how many;e0=question e3=quantity000
 how do;e0=question
 a city;e3=place000
-
-
-
-
-
+a country;e3=place000
+a town;e3=place000
+a place;e3=place000
