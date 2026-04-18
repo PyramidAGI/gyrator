@@ -6,7 +6,7 @@ Get-Content .\tiled-world.csv -tail 5
 
 prompt:
 
-make a python program that uses nlcheck.csv (comma separated) to analyze an input sentence. 
+make a python program that uses nlcheck.csv (semicolon separated) to analyze an input sentence. 
 if the input sentence contains a value from the first column, then print the output column.there can be multiple hits.  
 repeat until 'quit' is input
 ---                                                                                     
