@@ -1,5 +1,9 @@
 pattern;output
 is sleeping;e1=stat e4=activity v=20
+is in;e1=loc
+is at;e1=loc
+likes;e1=pref
+loves;e1=pref
 want to;e2=plan001
 in nz;e2=place7349
 nz is;e2=place7349
@@ -35,7 +39,20 @@ negative;e3=negation001
 hello;e0=introduction
 hi;e0=introduction
 bye;e0=introduction e3=negation001
-
+yesterday;e2=time210
+future;e2=time207
+past;e2=time300
+is not;e3=negation001
+where is;e0=question
+where are;e0=question
+what is;e0=question
+what are;e0=question
+who is;e0=question
+who are;e0=question
+when is;e0=question
+when are;e0=question
+why is;e0=question
+why are;e0=question
 
 
 
