@@ -37,3 +37,9 @@ placeholder;a;causal;motivation002;emo239;;;;empty message
 placeholder;a;stat;person005;state23;;;;empty message
 placeholder;a;loc;person005;place828;;;;empty message
 placeholder;a;loc;person772;place211;;;;empty message
+placeholder;a;john;is;in;;;;empty message
+placeholder;a;loc;person004;loc777;;;;empty message
+placeholder;a;loc;person005;place7352;;;;empty message
+placeholder;a;stat;person333;emo99;;;;empty message
+placeholder;a;stat;animal292;emo33;;;;empty message
+the dog is slow;a;stat;animal292;property-slow;;;;when too slow say 'come on dog!'

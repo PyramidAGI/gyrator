@@ -13,17 +13,22 @@ amsterdam;e2=place7352
 i like;e1=pref
 you like;e1=pref
 is bright;e1=stat e3=property-bright
+is dark;e1=stat e3=property-dark
 john;e2=person004
-the sheep;e2=sheep001
-a sheep;e2=sheep000
+jill;e2=person005
 the sun;e2=star001
 hot;e1=stat e3=property-hot
 cold;e1=stat e3=property-cold
 stable;e1=stat e4=stability v=80
 unstable;e1=stat e4=stability v=10
+slow;e1=stat e3=property-slow
+fast;e1=stat e3=property-fast
 the dog;e2=animal292
 the cat;e2=animal293
 the bird;e2=animal300
+the horse;e2=animal187
+the sheep;e2=sheep001
+a sheep;e2=sheep000
 tired;e1=stat e3=property-tired
 happy;e1=stat e3=emo010
 sad;e1=stat e3=emo005
@@ -32,6 +37,8 @@ the lamp;e2=radiation001 e4=energy v=40
 the candle;e2=radiation001 e4=energy v=20
 the book;e2=data001
 the flower;e2=plant001
+the house;e2=building020
+the pond;e2=thing093
 no way;e3=negation001
 yes;e3=positive001
 positive;e3=positive001
@@ -43,16 +50,25 @@ yesterday;e2=time210
 future;e2=time207
 past;e2=time300
 is not;e3=negation001
-where is;e0=question
-where are;e0=question
+where is;e0=question e1=loc
+where are;e0=question e1=loc
+where do;e0=question e1=loc
 what is;e0=question
 what are;e0=question
+what do;e0=question
 who is;e0=question
 who are;e0=question
-when is;e0=question
-when are;e0=question
+when is;e0=question e3=time000
+when are;e0=question e3=time000
+when do;e0=question e3=time000
+when did;e0=question e3=time000
 why is;e0=question
 why are;e0=question
+why do;e0=question
+how many;e0=question e3=quantity000
+how do;e0=question
+
+
 
 
 
