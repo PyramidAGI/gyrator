@@ -1,5 +1,41 @@
 pattern;output
-is sleeping;e1=stat
+is sleeping;e1=stat e4=activity v=20
 want to;e2=plan001
-nz;e2=place7349
-like;e1=pref
+in nz;e2=place7349
+nz is;e2=place7349
+new york;e2=place7350
+south africa;e2=place7351
+amsterdam;e2=place7352
+i like;e1=pref
+you like;e1=pref
+is bright;e1=stat e3=property-bright
+john;e2=person004
+the sheep;e2=sheep001
+a sheep;e2=sheep000
+the sun;e2=star001
+hot;e1=stat e3=property-hot
+cold;e1=stat e3=property-cold
+stable;e1=stat e4=stability v=80
+unstable;e1=stat e4=stability v=10
+the dog;e2=animal292
+the cat;e2=animal293
+the bird;e2=animal300
+tired;e1=stat e3=property-tired
+happy;e1=stat e3=emo010
+sad;e1=stat e3=emo005
+the table;e2=support001
+the lamp;e2=radiation001 e4=energy v=40
+the candle;e2=radiation001 e4=energy v=20
+the book;e2=data001
+the flower;e2=plant001
+no way;e3=negation001
+yes;e3=positive001
+positive;e3=positive001
+negative;e3=negation001
+hello;e0=introduction
+hi;e0=introduction
+bye;e0=introduction e3=negation001
+
+
+
+
