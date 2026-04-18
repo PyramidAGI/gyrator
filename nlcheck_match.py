@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 CSV_FILE = Path(__file__).with_name("nlcheck.csv")
+QUESTION_OUTPUT = "e0=question"
 
 
 def detect_dialect(path: Path) -> csv.Dialect:
@@ -40,14 +41,25 @@ def load_rules(path: Path) -> list[tuple[str, str]]:
             continue
 
         output = row[output_index].strip() if output_index < len(row) else ""
+        if pattern == "?":
+            continue
+
         rules.append((pattern.lower(), output))
 
     return rules
 
 
 def find_matches(sentence: str, rules: list[tuple[str, str]]) -> list[str]:
-    lowered = sentence.lower()
-    return [output for pattern, output in rules if pattern in lowered]
+    matches = []
+    normalized = sentence
+
+    if "?" in normalized:
+        matches.append(QUESTION_OUTPUT)
+        normalized = normalized.replace("?", " ")
+
+    lowered = normalized.lower()
+    matches.extend(output for pattern, output in rules if pattern in lowered)
+    return matches
 
 
 def main() -> None:
