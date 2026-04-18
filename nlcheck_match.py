@@ -54,17 +54,23 @@ def load_rules(path: Path) -> list[tuple[str, str]]:
 def load_tiled_world_entries(path: Path) -> list[dict[str, object]]:
     dialect = detect_dialect(path)
     entries = []
-    current = None
+    current = {"sentences": [], "rows": []}
 
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle, dialect=dialect)
         for row in reader:
             sentence = row["natural language input"].strip()
             if sentence:
-                current = {"sentence": sentence, "rows": [row]}
-                entries.append(current)
-            elif current is not None:
+                current["sentences"].append(sentence)
                 current["rows"].append(row)
+                continue
+
+            if current["rows"]:
+                entries.append(current)
+                current = {"sentences": [], "rows": []}
+
+    if current["rows"]:
+        entries.append(current)
 
     return entries
 
@@ -113,10 +119,12 @@ def find_best_tiled_world_rows(
     scored_rows = []
 
     for entry in entries:
-        entry_sentence = str(entry["sentence"]).strip()
+        cluster_sentences = [str(item).strip() for item in entry["sentences"] if str(item).strip()]
+        primary_sentence = cluster_sentences[0] if cluster_sentences else ""
         for raw_row in entry["rows"]:
             row = dict(raw_row)
-            row["natural language input"] = entry_sentence
+            row["natural language input"] = primary_sentence
+            row["cluster sentence count"] = str(len(cluster_sentences))
             scored_rows.append((score_tiled_world_row(sentence, row, expected_fields), row))
 
     if not scored_rows:
@@ -136,7 +144,8 @@ def format_tiled_world_row(row: dict[str, str]) -> str:
 
     message = row.get("message output", "").strip()
     sentence = row.get("natural language input", "").strip()
-    return f"NL={sentence} message={message} {' '.join(parts)}"
+    cluster_sentence_count = row.get("cluster sentence count", "0").strip()
+    return f"NL={sentence} cluster_size={cluster_sentence_count} message={message} {' '.join(parts)}"
 
 
 def print_result(source: str, value: str) -> None:

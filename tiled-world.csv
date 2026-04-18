@@ -43,3 +43,9 @@ placeholder;a;loc;person005;place7352;;;;empty message
 placeholder;a;stat;person333;emo99;;;;empty message
 placeholder;a;stat;animal292;emo33;;;;empty message
 the dog is slow;a;stat;animal292;property-slow;;;;when too slow say 'come on dog!'
+;;;;;;;;
+placeholder;a;pref;animal292;;;;;empty message
+;;;;;;;;
+placeholder;a;nz;is;hot;;;;empty message
+;;;;;;;;
+placeholder;a;stat;place7349;property-hot;;;;empty message

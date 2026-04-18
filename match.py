@@ -60,6 +60,7 @@ def add_entry(path, entries, query):
     e3 = parts[3] if len(parts) > 3 else ''
     with open(path, 'a', newline='', encoding='utf-8-sig') as f:
         writer = csv.writer(f, delimiter=';')
+        writer.writerow(['', '', '', '', '', '', '', '', ''])
         writer.writerow(['placeholder', e0, e1, e2, e3, '', '', '', 'empty message'])
     new_row = {'natural language input': 'placeholder', 'e0': e0, 'e1': e1,
                'e2': e2, 'e3': e3, 'e4': '', 'v': '', 'threshold': '', 'message output': 'empty message'}

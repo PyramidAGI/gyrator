@@ -3,3 +3,21 @@
 Get-Content .\tiled-world.csv -head 5
 Get-Content .\tiled-world.csv -tail 5
 
+
+prompt:
+
+make a python program that uses nlcheck.csv (comma separated) to analyze an input sentence. 
+if the input sentence contains a value from the first column, then print the output column.there can be multiple hits.  
+repeat until 'quit' is input
+---                                                                                     
+make this pattern hard coded '?;e0=question'  and run it first and then remove the question mark from the input sentence
+if the result is ' e0=question', then find the best combination of e1,e2,e3 in @tiled-world.csv and print it
+show in the results what comes from @nlcheck.csv and what comes from @tiled-world.csv
+for the tiled-world result, also show columns NL and message
+see this example, the result should find person005 in tiled-world
+@tiled-world.csv has a clustered structure; blank sentences separate on cluster from another. in a result, show all 
+sentences that belong to the same cluster
+that is not what i intended. print the hit sentence and only print the number of sentences in the same cluster.
+
+in @match.py , when a sentence is added via the 'a' command, first add a blank sentence to the @tiled-world.csv file
+ to indicate a new cluster
