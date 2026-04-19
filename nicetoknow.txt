@@ -4,7 +4,7 @@ Get-Content .\tiled-world.csv -head 5
 Get-Content .\tiled-world.csv -tail 5
 
 
-prompts:
+prompts and thoughts of GPT5.4:
 
 make a python program that uses nlcheck.csv (semicolon separated) to analyze an input sentence. 
 if the input sentence contains a value from the first column, then print the output column.there can be multiple hits.  
@@ -26,3 +26,8 @@ if i send e0=question, don't check on e0 but only on e1 e2 e
 
 It was counting only nonblank sentence rows, so continuation rows in the same cluster were ignored. 
 It now counts all rows in the matched cluster, so your example now shows: tiled-world.csv: NL=the engine is cold cluster_size=2 message= e2=thing00
+
+Fixed nlcheck_match.py so tiled-world.csv lookup now prefers the latest matching cluster when the same e1/e2/e3
+fields match.
+
+Your example now returns: tiled-world.csv: NL=john is in new york cluster_size=3 message= e1=loc e2=person004

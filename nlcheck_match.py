@@ -154,40 +154,69 @@ def extract_fields(matches: list[str]) -> dict[str, set[str]]:
     return fields
 
 
-def score_tiled_world_row(
-    sentence: str, row: dict[str, str], expected_fields: dict[str, set[str]]
+def score_tiled_world_entry(
+    sentence: str, entry: dict[str, object], expected_fields: dict[str, set[str]]
 ) -> tuple[int, float]:
     exact_matches = 0
     for field in ("e1", "e2", "e3"):
-        value = row.get(field, "").strip()
-        if value and value in expected_fields[field]:
+        cluster_values = {
+            row.get(field, "").strip()
+            for row in entry["rows"]
+            if row.get(field, "").strip()
+        }
+        if cluster_values & expected_fields[field]:
             exact_matches += 1
 
-    return exact_matches, similarity(sentence, row.get("natural language input", ""))
+    cluster_sentences = [str(item).strip() for item in entry["sentences"] if str(item).strip()]
+    best_similarity = max((similarity(sentence, item) for item in cluster_sentences), default=0.0)
+    return exact_matches, best_similarity
+
+
+def build_tiled_world_result(
+    entry: dict[str, object], expected_fields: dict[str, set[str]]
+) -> dict[str, str]:
+    cluster_sentences = [str(item).strip() for item in entry["sentences"] if str(item).strip()]
+    result = {
+        "natural language input": cluster_sentences[0] if cluster_sentences else "",
+        "cluster size": str(len(entry["rows"])),
+        "message output": "",
+    }
+
+    for row in entry["rows"]:
+        message = row.get("message output", "").strip()
+        if message and not result["message output"]:
+            result["message output"] = message
+
+    for field in ("e1", "e2", "e3"):
+        matched_values = []
+        seen = set()
+        for row in entry["rows"]:
+            value = row.get(field, "").strip()
+            if value and value in expected_fields[field] and value not in seen:
+                matched_values.append(f"{field}={value}")
+                seen.add(value)
+        result[field] = " ".join(matched_values)
+
+    return result
 
 
 def find_best_tiled_world_rows(
     sentence: str, entries: list[dict[str, object]], matches: list[str]
 ) -> list[dict[str, str]]:
     expected_fields = extract_fields(matches)
-    scored_rows = []
+    scored_entries = []
 
-    for entry in entries:
-        cluster_sentences = [str(item).strip() for item in entry["sentences"] if str(item).strip()]
-        primary_sentence = cluster_sentences[0] if cluster_sentences else ""
-        cluster_size = str(len(entry["rows"]))
-        for raw_row in entry["rows"]:
-            row = dict(raw_row)
-            row["natural language input"] = primary_sentence
-            row["cluster size"] = cluster_size
-            scored_rows.append((score_tiled_world_row(sentence, row, expected_fields), row))
+    for index, entry in enumerate(entries):
+        score = score_tiled_world_entry(sentence, entry, expected_fields)
+        if score[0] > 0:
+            scored_entries.append((score, index, entry))
 
-    if not scored_rows:
+    if not scored_entries:
         return []
 
-    scored_rows.sort(key=lambda item: item[0], reverse=True)
-    best_score = scored_rows[0][0]
-    return [row for score, row in scored_rows if score == best_score and score[0] > 0]
+    scored_entries.sort(key=lambda item: (item[0][0], item[1], item[0][1]), reverse=True)
+    best_entry = scored_entries[0][2]
+    return [build_tiled_world_result(best_entry, expected_fields)]
 
 
 def format_tiled_world_row(row: dict[str, str]) -> str:
@@ -195,7 +224,7 @@ def format_tiled_world_row(row: dict[str, str]) -> str:
     for field in ("e1", "e2", "e3"):
         value = row.get(field, "").strip()
         if value:
-            parts.append(f"{field}={value}")
+            parts.append(value)
 
     message = row.get("message output", "").strip()
     sentence = row.get("natural language input", "").strip()
