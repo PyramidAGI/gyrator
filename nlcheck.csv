@@ -4,6 +4,10 @@ is in;e1=loc
 is at;e1=loc
 likes;e1=pref
 loves;e1=pref
+i love;e1=pref
+i like;e1=pref
+you love;e1=pref
+you like;e1=pref
 want to;e2=plan001
 in nz;e2=place7349
 nz is;e2=place7349
@@ -29,6 +33,7 @@ the bird;e2=animal300
 the horse;e2=animal187
 the sheep;e2=sheep001
 the house;e2=container001
+the shed;e2=container001
 the window;e2=channel001
 the roof;e2=shield001
 the wall;e2=shield002
@@ -56,6 +61,9 @@ future;e2=time207
 past;e2=time300
 is not;e3=negation001
 isn't;e3=negation001
+not;e3=negation001
+don't;e3=negation001
+do not;e3=negation001
 where is;e0=question e1=loc
 where are;e0=question e1=loc
 where do;e0=question e1=loc
