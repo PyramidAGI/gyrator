@@ -28,6 +28,10 @@ the cat;e2=animal293
 the bird;e2=animal300
 the horse;e2=animal187
 the sheep;e2=sheep001
+the house;e2=container001
+the window;e2=channel001
+the roof;e2=shield001
+the wall;e2=shield002
 a sheep;e2=sheep000
 tired;e1=stat e3=property-tired
 happy;e1=stat e3=emo010
@@ -69,7 +73,13 @@ why are;e0=question
 why do;e0=question
 how many;e0=question e3=quantity000
 how do;e0=question
+how is;e0=question
 a city;e3=place000
 a country;e3=place000
 a town;e3=place000
 a place;e3=place000
+the plan;e2=plan001
+the problem;e2=problem001
+the weather;e2=climate001
+position;e1=loc
+location;e1=loc
