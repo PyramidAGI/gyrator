@@ -27,6 +27,8 @@ stable;e1=stat e4=stability v=80
 unstable;e1=stat e4=stability v=10
 slow;e1=stat e3=property-slow
 fast;e1=stat e3=property-fast
+big;e1=stat e3=property-big
+small;e1=stat e3=property-small
 the dog;e2=animal292
 the cat;e2=animal293
 the bird;e2=animal300
@@ -42,9 +44,13 @@ tired;e1=stat e3=property-tired
 happy;e1=stat e3=emo010
 sad;e1=stat e3=emo005
 the table;e2=support001
-the lamp;e2=radiation001 e4=energy v=40
-the candle;e2=radiation001 e4=energy v=20
-the book;e2=data001
+the lamp;e2=radiation001 e2=thing000 e4=energy v=40
+the candle;e2=radiation001 e2=thing000 e4=energy v=20
+the power supply;e2=energy001 e2=thing000 e4=energy v=80
+the battery;e2=energy001 e2=thing000 e4=energy v=80
+the engine;e2=energy001 e2=thing000 e4=energy v=80
+the motor;e2=energy001 e2=thing000 e4=energy v=80
+the book;e2=data001 e2=thing000 
 the flower;e2=plant001
 the house;e2=building020
 the shed;e2=building021

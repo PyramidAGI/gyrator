@@ -4,7 +4,7 @@ Get-Content .\tiled-world.csv -head 5
 Get-Content .\tiled-world.csv -tail 5
 
 
-prompt:
+prompts:
 
 make a python program that uses nlcheck.csv (semicolon separated) to analyze an input sentence. 
 if the input sentence contains a value from the first column, then print the output column.there can be multiple hits.  
@@ -21,3 +21,8 @@ that is not what i intended. print the hit sentence and only print the number of
 
 in @match.py , when a sentence is added via the 'a' command, first add a blank sentence to the @tiled-world.csv file
  to indicate a new cluster
+
+if i send e0=question, don't check on e0 but only on e1 e2 e
+
+It was counting only nonblank sentence rows, so continuation rows in the same cluster were ignored. 
+It now counts all rows in the matched cluster, so your example now shows: tiled-world.csv: NL=the engine is cold cluster_size=2 message= e2=thing00

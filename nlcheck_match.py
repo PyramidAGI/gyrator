@@ -60,19 +60,73 @@ def load_tiled_world_entries(path: Path) -> list[dict[str, object]]:
         reader = csv.DictReader(handle, dialect=dialect)
         for row in reader:
             sentence = row["natural language input"].strip()
-            if sentence:
-                current["sentences"].append(sentence)
-                current["rows"].append(row)
+            row_has_values = any(value.strip() for value in row.values())
+            if not row_has_values:
+                if current["rows"]:
+                    entries.append(current)
+                    current = {"sentences": [], "rows": []}
                 continue
 
-            if current["rows"]:
-                entries.append(current)
-                current = {"sentences": [], "rows": []}
+            current["rows"].append(row)
+            if sentence:
+                current["sentences"].append(sentence)
 
     if current["rows"]:
         entries.append(current)
 
     return entries
+
+
+def parse_match(match: str) -> dict[str, str]:
+    parsed = {}
+    for part in match.split():
+        if "=" not in part:
+            continue
+        key, value = part.split("=", 1)
+        if key and value:
+            parsed[key] = value
+    return parsed
+
+
+def append_matches_cluster(path: Path, sentence: str, matches: list[str]) -> None:
+    rows_to_write = []
+    for index, match in enumerate(matches):
+        parsed = parse_match(match)
+        row = {
+            "natural language input": sentence if index == 0 else "",
+            "e0": parsed.get("e0", ""),
+            "e1": parsed.get("e1", ""),
+            "e2": parsed.get("e2", ""),
+            "e3": parsed.get("e3", ""),
+            "e4": parsed.get("e4", ""),
+            "v": parsed.get("v", ""),
+            "threshold": parsed.get("threshold", ""),
+            "message output": "",
+        }
+        if any(value for key, value in row.items() if key != "natural language input") or row["natural language input"]:
+            rows_to_write.append(row)
+
+    if not rows_to_write:
+        return
+
+    with path.open("a", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle, delimiter=";")
+        writer.writerow(["", "", "", "", "", "", "", "", ""])
+        for row in rows_to_write:
+            writer.writerow(
+                [
+                    row["natural language input"],
+                    row["e0"],
+                    row["e1"],
+                    row["e2"],
+                    row["e3"],
+                    row["e4"],
+                    row["v"],
+                    row["threshold"],
+                    row["message output"],
+                ]
+            )
+        writer.writerow(["", "", "", "", "", "", "", "", ""])
 
 
 def normalize_text(text: str) -> str:
@@ -121,10 +175,11 @@ def find_best_tiled_world_rows(
     for entry in entries:
         cluster_sentences = [str(item).strip() for item in entry["sentences"] if str(item).strip()]
         primary_sentence = cluster_sentences[0] if cluster_sentences else ""
+        cluster_size = str(len(entry["rows"]))
         for raw_row in entry["rows"]:
             row = dict(raw_row)
             row["natural language input"] = primary_sentence
-            row["cluster sentence count"] = str(len(cluster_sentences))
+            row["cluster size"] = cluster_size
             scored_rows.append((score_tiled_world_row(sentence, row, expected_fields), row))
 
     if not scored_rows:
@@ -144,8 +199,8 @@ def format_tiled_world_row(row: dict[str, str]) -> str:
 
     message = row.get("message output", "").strip()
     sentence = row.get("natural language input", "").strip()
-    cluster_sentence_count = row.get("cluster sentence count", "0").strip()
-    return f"NL={sentence} cluster_size={cluster_sentence_count} message={message} {' '.join(parts)}"
+    cluster_size = row.get("cluster size", "0").strip()
+    return f"NL={sentence} cluster_size={cluster_size} message={message} {' '.join(parts)}"
 
 
 def print_result(source: str, value: str) -> None:
@@ -165,6 +220,10 @@ def find_matches(sentence: str, rules: list[tuple[str, str]]) -> list[str]:
     return matches
 
 
+def is_question_match(match: str) -> bool:
+    return any(part == "e0=question" for part in match.split())
+
+
 def main() -> None:
     rules = load_rules(CSV_FILE)
     tiled_world_entries = load_tiled_world_entries(TILED_WORLD_FILE)
@@ -177,13 +236,17 @@ def main() -> None:
 
         matches = find_matches(sentence, rules)
         if matches:
+            has_question = any(is_question_match(match) for match in matches)
             for match in matches:
                 source = "built-in" if match == QUESTION_OUTPUT and "?" in sentence else CSV_FILE.name
                 print_result(source, match)
-            if QUESTION_OUTPUT in matches:
+            if has_question:
                 best_rows = find_best_tiled_world_rows(sentence, tiled_world_entries, matches)
                 for row in best_rows:
                     print_result(TILED_WORLD_FILE.name, format_tiled_world_row(row))
+            else:
+                append_matches_cluster(TILED_WORLD_FILE, sentence, matches)
+                tiled_world_entries = load_tiled_world_entries(TILED_WORLD_FILE)
         else:
             print("No matches.")
 

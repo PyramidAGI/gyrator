@@ -57,3 +57,11 @@ placeholder;a;loc;place7352;noord-holland;;;;empty message
 placeholder;a;loc;animal300;place7351;;;;empty message
 ;;;;;;;;
 placeholder;a;stat;climate001;property-cold;;;;empty message
+;;;;;;;;
+the engine is cold;;stat;;property-cold;;;;
+;;;thing000;;energy;80;;
+;;;;;;;;
+;;;;;;;;
+amsterdam is big;;;place7352;;;;;
+;;stat;;property-big;;;;
+;;;;;;;;
