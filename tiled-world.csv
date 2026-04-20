@@ -125,3 +125,13 @@ i am in amsterdam;;stat;person003;;;;;
 ;;;;;;;;
 where i am;;stat;person003;;;;;
 ;;;;;;;;
+;;;;;;;;
+placeholder;a;coordination;team_handover;project_team;clarity;35;60;investigate handover breakdown
+placeholder;a;causal;handover_clarity;deadline_reliability;reduction;35;60;raise deadline risk
+placeholder;a;causal;trust;escalation_pressure;instability;45;70;monitor relational tension
+;;;;;;;;
+;;;;;;;;
+placeholder;a;coordination;team_handover;project_team;clarity;35;60;investigate handover breakdown
+placeholder;a;causal;handover_clarity;deadline_reliability;reduction;35;60;raise deadline risk
+placeholder;a;causal;trust;escalation_pressure;instability;45;70;monitor relational tension
+;;;;;;;;

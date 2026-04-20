@@ -258,6 +258,35 @@ def print_problem_file(name: str) -> bool:
     return True
 
 
+def append_problem_file_to_log(log_path: Path, problem_file: Path) -> None:
+    dialect = detect_dialect(problem_file)
+    with problem_file.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle, dialect=dialect)
+        rows = list(reader)
+
+    if not rows:
+        return
+
+    with log_path.open("a", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle, delimiter=";")
+        writer.writerow(["", "", "", "", "", "", "", "", ""])
+        for row in rows:
+            writer.writerow(
+                [
+                    row.get("natural language input", ""),
+                    row.get("e0", ""),
+                    row.get("e1", ""),
+                    row.get("e2", ""),
+                    row.get("e3", ""),
+                    row.get("e4", ""),
+                    row.get("v", ""),
+                    row.get("threshold", ""),
+                    row.get("message output", ""),
+                ]
+            )
+        writer.writerow(["", "", "", "", "", "", "", "", ""])
+
+
 def find_matches(sentence: str, rules: list[tuple[str, str]]) -> list[str]:
     matches = []
     normalized = sentence
@@ -285,7 +314,17 @@ def main() -> None:
         if sentence.lower() == "quit":
             break
         if sentence.startswith("i "):
-            print_problem_file(sentence[2:].strip())
+            problem_name = sentence[2:].strip()
+            problem_file = find_problem_file(problem_name)
+            if problem_file is None:
+                print(f"Problem file not found: {problem_name}")
+                continue
+
+            print_problem_file(problem_name)
+            add_to_log = input("Add to log? ").strip().lower()
+            if add_to_log == "y":
+                append_problem_file_to_log(TILED_WORLD_FILE, problem_file)
+                tiled_world_entries = load_tiled_world_entries(TILED_WORLD_FILE)
             continue
 
         matches = find_matches(sentence, rules)
