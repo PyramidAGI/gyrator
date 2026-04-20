@@ -6,6 +6,9 @@ likes;e1=pref
 loves;e1=pref
 i love;e1=pref
 i like;e1=pref
+i am;e1=stat e2=person003
+you like;e1=pref
+you are;e1=stat e2=person002
 you love;e1=pref
 you like;e1=pref
 want to;e2=plan001
@@ -14,8 +17,6 @@ nz is;e2=place7349
 new york;e2=place7350
 south africa;e2=place7351
 amsterdam;e2=place7352
-i like;e1=pref
-you like;e1=pref
 is bright;e1=stat e3=property-bright
 is dark;e1=stat e3=property-dark
 john;e2=person004
@@ -50,6 +51,8 @@ the power supply;e2=energy001 e2=thing000 e4=energy v=80
 the battery;e2=energy001 e2=thing000 e4=energy v=80
 the engine;e2=energy001 e2=thing000 e4=energy v=80
 the motor;e2=energy001 e2=thing000 e4=energy v=80
+the device;e2=tool000
+the thing;e2=thing000
 the book;e2=data001 e2=thing000 
 the flower;e2=plant001
 the house;e2=building020
@@ -71,6 +74,7 @@ not;e3=negation001
 don't;e3=negation001
 do not;e3=negation001
 where is;e0=question e1=loc
+where am i;e0=question e1=loc e2=person003
 where are;e0=question e1=loc
 where do;e0=question e1=loc
 what is;e0=question
@@ -97,3 +101,9 @@ the problem;e2=problem001
 the weather;e2=climate001
 position;e1=loc
 location;e1=loc
+1;e3=number-1
+2;e3=number-2
+3;e3=number-3
+4;e3=number-4
+the human;e2=person001
+the animal;e2=animal001

@@ -5,6 +5,7 @@ from pathlib import Path
 
 CSV_FILE = Path(__file__).with_name("nlcheck.csv")
 TILED_WORLD_FILE = Path(__file__).with_name("tiled-world.csv")
+PROBLEMS_DIR = Path(__file__).with_name("problems")
 QUESTION_OUTPUT = "e0=question"
 
 
@@ -236,6 +237,27 @@ def print_result(source: str, value: str) -> None:
     print(f"{source}: {value}")
 
 
+def find_problem_file(name: str) -> Path | None:
+    target = Path(name).name.lower()
+    for path in PROBLEMS_DIR.iterdir():
+        if path.is_file() and path.name.lower() == target:
+            return path
+    return None
+
+
+def print_problem_file(name: str) -> bool:
+    problem_file = find_problem_file(name)
+    if problem_file is None:
+        print(f"Problem file not found: {name}")
+        return False
+
+    print(f"problems\\{problem_file.name}:")
+    with problem_file.open("r", encoding="utf-8-sig", newline="") as handle:
+        for line in handle:
+            print(line.rstrip("\r\n"))
+    return True
+
+
 def find_matches(sentence: str, rules: list[tuple[str, str]]) -> list[str]:
     matches = []
     normalized = sentence
@@ -262,6 +284,9 @@ def main() -> None:
         sentence = input("Enter a sentence: ").strip()
         if sentence.lower() == "quit":
             break
+        if sentence.startswith("i "):
+            print_problem_file(sentence[2:].strip())
+            continue
 
         matches = find_matches(sentence, rules)
         if matches:
