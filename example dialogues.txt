@@ -1,0 +1,13 @@
+
+>this problem.. 
+
+<coomo problem001.csv problem002.csv
+
+>problem002.csv
+
+<yeah, what about it?
+
+>i want you to use it and solve it
+
+<ok, let's do it.
+
