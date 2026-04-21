@@ -9,16 +9,9 @@ PROBLEMS_DIR = Path(__file__).with_name("problems")
 QUESTION_OUTPUT = "e0=question"
 
 
-def detect_dialect(path: Path) -> csv.Dialect:
-    with path.open("r", encoding="utf-8-sig", newline="") as handle:
-        sample = handle.read(2048)
-    return csv.Sniffer().sniff(sample, delimiters=",;")
-
-
 def load_rules(path: Path) -> list[tuple[str, str]]:
-    dialect = detect_dialect(path)
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.reader(handle, dialect)
+        reader = csv.reader(handle, delimiter=";")
         rows = [row for row in reader if any(cell.strip() for cell in row)]
 
     if not rows:
@@ -53,12 +46,11 @@ def load_rules(path: Path) -> list[tuple[str, str]]:
 
 
 def load_tiled_world_entries(path: Path) -> list[dict[str, object]]:
-    dialect = detect_dialect(path)
     entries = []
     current = {"sentences": [], "rows": []}
 
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle, dialect=dialect)
+        reader = csv.DictReader(handle, delimiter=";")
         for row in reader:
             sentence = row["natural language input"].strip()
             row_has_values = any(value.strip() for value in row.values())
@@ -259,9 +251,8 @@ def print_problem_file(name: str) -> bool:
 
 
 def append_problem_file_to_log(log_path: Path, problem_file: Path) -> None:
-    dialect = detect_dialect(problem_file)
     with problem_file.open("r", encoding="utf-8-sig", newline="") as handle:
-        reader = csv.DictReader(handle, dialect=dialect)
+        reader = csv.DictReader(handle, delimiter=";")
         rows = list(reader)
 
     if not rows:

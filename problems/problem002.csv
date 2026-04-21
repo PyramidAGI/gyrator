@@ -1,0 +1,8 @@
+natural language input;e0;e1;e2;e3;e4;v;threshold;message output
+placeholder;i;home;energy_use;winter_period;context;1;1;establish household energy context
+placeholder;a;consumption;heating_system;living_room;excess;72;60;check thermostat schedule
+placeholder;a;causal;insulation_quality;heat_loss;increase;68;55;investigate draft and insulation points
+placeholder;q;question;night_setback;temperature_drop;adequacy;40;50;ask whether lower night setting is possible
+placeholder;c;command;washing_machine;off_peak_hours;shift;recommended;65;50;move laundry cycle to off-peak period
+placeholder;a;causal;standby_devices;base_load;increase;58;45;identify standby consumers
+placeholder;c;command;lighting;unused_rooms;switch_off;recommended;62;50;reduce unnecessary lighting use
