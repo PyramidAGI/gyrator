@@ -19,6 +19,7 @@ south africa;e2=place7351
 amsterdam;e2=place7352
 is bright;e1=stat e3=property-bright
 is dark;e1=stat e3=property-dark
+is a support;e3=quark-support
 john;e2=person004
 jill;e2=person005
 the sun;e2=star001
