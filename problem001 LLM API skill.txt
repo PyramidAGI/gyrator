@@ -1,0 +1,65 @@
+PROBLEM001 LLM API SKILL
+
+Use this when `problem001.csv` is sent to an LLM API.
+
+Goal
+- Read the compressed semicolon-delimited rows.
+- Expand them into a plain-language understanding of the situation.
+- Produce a useful diagnosis and response for the underlying problem.
+
+What the compressed file means
+- The file has one header row and then 3 data rows.
+- Each data row has the format:
+  natural language input;e0;e1;e2;e3;e4;v;threshold;message output
+- In `problem001.csv`, the three rows describe one connected workplace issue:
+  1. coordination / team_handover / project_team / clarity / 35 / 60
+  2. causal / handover_clarity / deadline_reliability / reduction / 35 / 60
+  3. causal / trust / escalation_pressure / instability / 45 / 70
+
+How the LLM should interpret it
+- Treat the rows as a compressed knowledge graph, not as normal prose.
+- Read each row as a signal about the same scenario.
+- The scenario is:
+  - team handover clarity is weak
+  - weak handover clarity is reducing deadline reliability
+  - trust is unstable and escalation pressure is increasing
+- The `message output` column provides the intended concern or intervention hint:
+  - investigate handover breakdown
+  - raise deadline risk
+  - monitor relational tension
+- The numeric `v` and `threshold` fields are severity-style indicators.
+- When `v` is below `threshold`, treat that as a weak or underperforming condition.
+- When the relationship label implies instability or reduction, treat that as a risk amplifier.
+
+What the LLM should do
+1. Parse the rows correctly as semicolon-delimited structured data.
+2. Merge the rows into one coherent situation summary.
+3. Explain the likely operational problem in plain English.
+4. Identify the main risks:
+   - handover breakdown
+   - missed or unreliable deadlines
+   - team tension / trust erosion / escalation risk
+5. Recommend practical next actions.
+6. Keep the answer grounded in the rows; do not invent unrelated facts.
+
+Preferred output shape
+- Situation summary: 2-4 sentences
+- Key risks: short bullet list
+- Recommended actions: short bullet list
+
+Recommended reasoning style
+- First decode the entities and relations.
+- Then connect the causal chain.
+- Then prioritize response actions by likely business impact.
+
+Example decoded understanding
+- The project team has a coordination problem centered on unclear handovers.
+- Because handover clarity is poor, deadline reliability is at risk.
+- Trust is unstable, which increases escalation pressure and relational tension.
+- The best response is to clarify handoff ownership, tighten delivery checkpoints, and address team friction early.
+
+Do not do this
+- Do not treat `placeholder` as meaningful natural-language content.
+- Do not answer with raw CSV echoed back unless explicitly asked.
+- Do not ignore the causal links between rows.
+- Do not overfit to the numeric fields alone; use the semantic labels too.
