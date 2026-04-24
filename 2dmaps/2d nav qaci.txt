@@ -1,0 +1,2 @@
+natural language input;e0;e1;e2;e3;e4;v;threshold;message output
+how far is it from auckland to dunedin?;q;loc;city1000;city1001;;;;
