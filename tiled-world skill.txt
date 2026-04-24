@@ -1,0 +1,53 @@
+TILED-WORLD CSV SKILL
+
+Use this when reading, validating, editing, or appending data in tiled-world.csv.
+
+Core format
+- The file is semicolon-delimited only. Do not sniff delimiters and do not switch to commas.
+- The header is fixed:
+  natural language input;e0;e1;e2;e3;e4;v;threshold;message output
+- Every row has exactly 9 columns.
+- Empty separator rows are written as 9 empty fields:
+  ;;;;;;;;
+
+How entries are grouped
+- The file is organized into clusters.
+- A cluster is a consecutive run of non-empty rows between empty separator rows.
+- The first row of a cluster usually carries the natural-language sentence in column 1.
+- Continuation rows in the same cluster usually leave column 1 empty.
+- Keep row order inside a cluster exactly as written.
+
+Column meaning
+- natural language input: the source utterance for the cluster
+- e0-e4: semantic slots or labels
+- v: score/value/intensity field
+- threshold: threshold field
+- message output: optional natural-language response or note
+
+Handling rules
+- Preserve the header exactly.
+- Preserve semicolon separators exactly.
+- Preserve blank cluster separators.
+- When appending a new cluster, write:
+  1. one empty separator row
+  2. the cluster rows
+  3. one empty separator row
+- Leave unused fields empty rather than inventing placeholders unless the data already uses a placeholder value.
+- Keep messages in the last column only.
+
+Validation checklist
+- 9 columns on every row
+- semicolon delimiter on every row
+- clusters separated by empty rows
+- no accidental comma-separated rows
+- no missing trailing empty fields caused by manual edits
+
+Known repo-specific behavior
+- nlcheck_match.py reads tiled-world.csv with delimiter=";".
+- The loader treats empty rows as cluster boundaries.
+- Matching logic compares e1, e2, and e3 values across a cluster.
+- When auto-appending matches, the script writes blank separator rows before and after the new cluster.
+
+Important caution
+- Historical rows are not perfectly uniform. In particular, some command-like rows use slightly different slot layouts.
+- Do not silently normalize those rows unless explicitly asked. Preserve the intended 9-column shape and flag layout inconsistencies before making structural changes.

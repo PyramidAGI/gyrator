@@ -278,6 +278,14 @@ def append_problem_file_to_log(log_path: Path, problem_file: Path) -> None:
         writer.writerow(["", "", "", "", "", "", "", "", ""])
 
 
+def append_problem_command_to_log(log_path: Path, sentence: str, problem_file: Path) -> None:
+    with log_path.open("a", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle, delimiter=";")
+        writer.writerow(["", "", "", "", "", "", "", "", ""])
+        writer.writerow([sentence, "i", problem_file.name, "", "", "", "", "", ""])
+        writer.writerow(["", "", "", "", "", "", "", "", ""])
+
+
 def find_matches(sentence: str, rules: list[tuple[str, str]]) -> list[str]:
     matches = []
     normalized = sentence
@@ -314,6 +322,7 @@ def main() -> None:
             print_problem_file(problem_name)
             add_to_log = input("Add to log? ").strip().lower()
             if add_to_log == "y":
+                append_problem_command_to_log(TILED_WORLD_FILE, sentence, problem_file)
                 append_problem_file_to_log(TILED_WORLD_FILE, problem_file)
                 tiled_world_entries = load_tiled_world_entries(TILED_WORLD_FILE)
             continue
