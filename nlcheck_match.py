@@ -325,7 +325,7 @@ def main() -> None:
         sentence = input("Enter a sentence: ").strip()
         if sentence.lower() == "quit":
             break
-        if sentence.lower().startswith("c copy "):
+        if sentence.lower().startswith("c copy"):
             parts = sentence.split()
             if len(parts) != 4:
                 print("Usage: c copy <source-file> <destination-file>")
