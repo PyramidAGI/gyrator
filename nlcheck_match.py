@@ -1,4 +1,5 @@
 import csv
+import shutil
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -250,6 +251,18 @@ def print_problem_file(name: str) -> bool:
     return True
 
 
+def copy_problem_file(source_name: str, destination_name: str) -> bool:
+    problem_file = find_problem_file(source_name)
+    if problem_file is None:
+        print(f"Problem file not found: {source_name}")
+        return False
+
+    destination_path = PROBLEMS_DIR / Path(destination_name).name
+    shutil.copyfile(problem_file, destination_path)
+    print(f"Copied problems\\{problem_file.name} to problems\\{destination_path.name}")
+    return True
+
+
 def append_problem_file_to_log(log_path: Path, problem_file: Path) -> None:
     with problem_file.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle, delimiter=";")
@@ -312,6 +325,13 @@ def main() -> None:
         sentence = input("Enter a sentence: ").strip()
         if sentence.lower() == "quit":
             break
+        if sentence.lower().startswith("c copy "):
+            parts = sentence.split()
+            if len(parts) != 4:
+                print("Usage: c copy <source-file> <destination-file>")
+                continue
+            copy_problem_file(parts[2], parts[3])
+            continue
         if sentence.startswith("i "):
             problem_name = sentence[2:].strip()
             problem_file = find_problem_file(problem_name)
