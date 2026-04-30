@@ -1,0 +1,11 @@
+
+
+imagine i have a system
+that can solve problems
+if that system is very generic; meaning that a wide range of problems can be solved,
+then the system must keep track of all these problems in a log
+
+the amount of problems can increase rapidly
+that is why a problem should be compressed
+it should be compressed into primitives
+a primitive here is a quark from paper 1

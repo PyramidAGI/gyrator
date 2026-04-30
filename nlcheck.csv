@@ -46,6 +46,7 @@ tired;e1=stat e3=property-tired
 happy;e1=stat e3=emo010
 sad;e1=stat e3=emo005
 the table;e2=support001
+the leg;e2=support002
 the lamp;e2=radiation001 e2=thing000 e4=energy v=40
 the candle;e2=radiation001 e2=thing000 e4=energy v=20
 the power supply;e2=energy001 e2=thing000 e4=energy v=80
@@ -59,6 +60,8 @@ the flower;e2=plant001
 the house;e2=building020
 the shed;e2=building021
 the pond;e2=thing093
+the plant;e2=plant000
+the vase;e2=container003
 no way;e3=negation001
 yes;e3=positive001
 positive;e3=positive001
@@ -108,3 +111,35 @@ location;e1=loc
 4;e3=number-4
 the human;e2=person001
 the animal;e2=animal001
+a sun;e2=star000
+a dog;e2=animal000
+a cat;e2=animal000
+a bird;e2=animal000
+a horse;e2=animal000
+a house;e2=container000
+a shed;e2=container000
+a window;e2=channel000
+a roof;e2=shield000
+a wall;e2=shield000
+a table;e2=support000
+a lamp;e2=radiation000 e2=thing000 e4=energy v=40
+a candle;e2=radiation000 e2=thing000 e4=energy v=20
+a power supply;e2=energy000 e2=thing000 e4=energy v=80
+a battery;e2=energy000 e2=thing000 e4=energy v=80
+a engine;e2=energy000 e2=thing000 e4=energy v=80
+a motor;e2=energy000 e2=thing000 e4=energy v=80
+a device;e2=tool000
+a thing;e2=thing000
+a book;e2=data000 e2=thing000
+a flower;e2=plant000
+a house;e2=building000
+a shed;e2=building000
+a pond;e2=thing000
+a plan;e2=plan000
+a problem;e2=problem000
+a weather;e2=climate000
+a human;e2=person000
+a animal;e2=animal000
+a plant;e2=plant000
+a vase;e2=container000
+a leg;e2=support000

@@ -1,0 +1,15 @@
+give the last five succesful projects
+give the last five succesful tasks
+give the last five succesful ...
+
+where does petra live? NL 00..threshold;Co bremanlan13, Laren
+
+A user starts with something like:
+
+“Reduce energy use in my home”
+“Prepare a proposal for a client”
+“Analyze this HR candidate profile”
+“Design a small world model explorer”
+“Write chapter 2 of my book”
+
+The LLM generates suggestions, questions, plans, summaries, risks, next actions, or drafts. These outputs are not just shown once; they are stored in a structured log. Later, selected log entries are inserted back into the LLM context to improve the next answer.

@@ -127,6 +127,18 @@ def normalize_text(text: str) -> str:
     return " ".join(text.lower().replace("?", " ").split())
 
 
+def contains_whole_phrase(text: str, phrase: str) -> bool:
+    start = text.find(phrase)
+    while start != -1:
+        end = start + len(phrase)
+        before_ok = start == 0 or not text[start - 1].isalnum()
+        after_ok = end == len(text) or not text[end].isalnum()
+        if before_ok and after_ok:
+            return True
+        start = text.find(phrase, start + 1)
+    return False
+
+
 def similarity(a: str, b: str) -> float:
     normalized_a = normalize_text(a)
     normalized_b = normalize_text(b)
@@ -307,8 +319,8 @@ def find_matches(sentence: str, rules: list[tuple[str, str]]) -> list[str]:
         matches.append(QUESTION_OUTPUT)
         normalized = normalized.replace("?", " ")
 
-    lowered = normalized.lower()
-    matches.extend(output for pattern, output in rules if pattern in lowered)
+    lowered = normalize_text(normalized)
+    matches.extend(output for pattern, output in rules if contains_whole_phrase(lowered, pattern))
     return matches
 
 

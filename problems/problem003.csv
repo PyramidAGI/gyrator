@@ -1,0 +1,4 @@
+natural language input;e0;e1;e2;e3;e4;v;threshold;message output
+placeholder;a;coordination;team_handover;project_team;clarity;35;60;investigate handover breakdown
+placeholder;a;causal;handover_clarity;deadline_reliability;reduction;35;60;raise deadline risk
+placeholder;a;causal;trust;escalation_pressure;instability;45;70;monitor relational tension
